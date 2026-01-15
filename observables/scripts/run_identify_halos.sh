@@ -1,17 +1,17 @@
 #!/bin/bash -l
 
-# module load NiaEnv/2022a gcc/11.3.0 openssl/1.1.1k sqlite/3.35.5 hdf5/1.12.3
-
+module load StdEnv/2023 python/3.13
 source /scratch/aspadawe/manhattan_suite/observables/pyenvs/mansuite-obs/bin/activate
 
-caesar_dir=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00000/Groups
+caesar_dir=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00009/halo00009/output/Groups
+# /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00009/Groups
 echo $caesar_dir
 
-snap_nums=272
+snap_nums=77
 caesar_base=caesar_
 caesar_suffix=''
 
-output_file=$caesar_dir/halo_info_${snap_nums}
+output_file=$caesar_dir/halo_info-snap_${snap_nums}
 clear_output_file=--clear_output_file
 echo $output_file
 

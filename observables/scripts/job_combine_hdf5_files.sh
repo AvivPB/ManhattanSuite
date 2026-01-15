@@ -2,14 +2,16 @@
 #########################################################
 #SBATCH -J combine_hdf5_files
 
-#SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/slurm_files/snap_props/v5/slurm-%j.out
-##SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00000/Groups/slurm_files/slurm-%j.out
+##SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/slurm_files/snap_props/v5/slurm-%j.out
+##SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00000/Groups/slurm_files/snap_props/v1/slurm-%j-combine.out
+#SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00009/halo00009/output/Groups/slurm_files/snap_props/v1/slurm-%j-combine.out
+##SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00009/Groups/slurm_files/snap_props/v1/slurm-%j-combine.out
 
 #SBATCH --mail-user=apadawer@uvic.ca
 #SBATCH --mail-type=ALL
 #SBATCH --account=rrg-babul-ad
 #########################################################
-#SBATCH --time=24:00:00
+#SBATCH --time=1:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=192
 #SBATCH --mem=0
@@ -22,9 +24,12 @@
 module load StdEnv/2023 python/3.13
 source /scratch/aspadawe/manhattan_suite/observables/pyenvs/mansuite-obs/bin/activate
 
-input_dir="/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/snap_props/v5"
-output_file="${input_dir}/halo_0_props-v5.hdf5"
-pattern="halo_0_props-snap_[53-272]*.hdf5"
+input_dir="/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00009/halo00009/output/Groups/snap_props/v1"
+# "/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00009/Groups/snap_props/v1"
+# "/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00000/Groups/snap_props/v1"
+# "/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/snap_props/v5"
+output_file="${input_dir}/halo_0_props-v1.hdf5"
+pattern="halo_0_props-snap_*-v1.hdf5"
 
 echo "Combining HDF5 files..."
 python combine_hdf5_files.py "${input_dir}/${pattern}" "${output_file}"

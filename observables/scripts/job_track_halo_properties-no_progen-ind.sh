@@ -2,20 +2,21 @@
 #########################################################
 #SBATCH -J track_halo_properties-no_progen-ind
 
-#SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/slurm_files/snap_props/v5/slurm-%j-v2.out
-##SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00000/Groups/slurm_files/slurm-%j.out
+##SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/slurm_files/snap_props/v5/slurm-%j-v2.out
+##SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00009/Groups/slurm_files/snap_props/v1/slurm-%j.out
+#SBATCH -o /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00009/halo00009/output/Groups/slurm_files/snap_props/v1/slurm-%j.out
 
 #SBATCH --mail-user=apadawer@uvic.ca
 #SBATCH --mail-type=ALL
 #SBATCH --account=rrg-babul-ad
 #########################################################
-#SBATCH --time=2:00:00
+#SBATCH --time=2:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=192
 #SBATCH --mem=0
 #########################################################
 
-#SBATCH --array=53-99 # Run a N-job array, all simultaneously
+#SBATCH --array=0-77 # Run a N-job array, all simultaneously
 
 #########################################################
 
@@ -32,20 +33,23 @@ echo ""
 
 
 module load StdEnv/2023 python/3.13
-
 source /scratch/aspadawe/manhattan_suite/observables/pyenvs/mansuite-obs/bin/activate
 
 
-snap_dir=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/
-#/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00000/
+snap_dir=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00009/halo00009/output/
+# /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00009/
+#/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/
 snap_base=snapshot_
-caesar_dir=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/
-#/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00000/Groups/
+caesar_dir=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00009/halo00009/output/Groups/
+# /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00009/Groups/
+#/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/
 caesar_base=caesar_
 caesar_suffix=''
 
 # Read target_snap_nums and target_halo_ids from file
-progen_file=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/halo_progen_info_272
+progen_file=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00009/halo00009/output/Groups/halo_0_snap_77_progen_info
+# /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00009/Groups/halo_0_snap_77_progen_info
+# /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/halo_progen_info_272
 #/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00000/Groups/halo_progen_info_272
 while IFS=$'\t' read -r -a line; do
     target_snap_nums_list+="${line[6]} "
@@ -73,7 +77,9 @@ done
 sim_model='Simba'
 
 nproc=192
-output_file=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/snap_props/v5/halo_0_props-snap_${SLURM_ARRAY_TASK_ID}-v5
+output_file=/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00009/halo00009/output/Groups/snap_props/v1/halo_0_props-snap_${SLURM_ARRAY_TASK_ID}-v1
+# /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00009/Groups/snap_props/v1/halo_0_props-snap_${SLURM_ARRAY_TASK_ID}-v1
+# /scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_1x/halo00000/halo00000/Groups/snap_props/v5/halo_0_props-snap_${SLURM_ARRAY_TASK_ID}-v5
 #/scratch/aspadawe/snapshots/ManhattanSuite/Simba/simba_9Rvir_8x/halo00000/Groups/halo_0_props-v2
 clear_output_file=--clear_output_file
 

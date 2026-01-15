@@ -117,20 +117,31 @@ for source_snap_num in args.source_snap_nums:
             continue
         print(f'Target caesar file: {target_caesar_file}, z={z_target}\n')
 
+        ## Link halos in snapshots with caesar progen
+        # caesar.progen.check_if_progen_is_present(target_caesar_file, 'progen_halo_dm')
+        progens = caesar.progen.progen_finder(obj_current=source_obj, obj_target=target_obj, 
+                                                caesar_file=source_caesar_file, snap_dir=args.snap_dir,
+                                                data_type='halo', part_type='dm', recompute=True,
+                                                save=False, n_most=args.n_most, min_in_common=0.1, nproc=args.nproc,
+                                                match_frac=True, reverse_match=False)
+        print('\nprogens:')
+        print(progens)
+        print()
+
         for source_halo_id in args.source_halo_ids:
             print(f'Source halo id: {source_halo_id}\n')
             source_halo = source_obj.halos[source_halo_id]
         
-            ## Link halos in snapshots with caesar progen
-            # caesar.progen.check_if_progen_is_present(target_caesar_file, 'progen_halo_dm')
-            progens = caesar.progen.progen_finder(obj_current=source_obj, obj_target=target_obj, 
-                                                  caesar_file=source_caesar_file, snap_dir=args.snap_dir,
-                                                  data_type='halo', part_type='dm', recompute=True,
-                                                  save=False, n_most=args.n_most, min_in_common=0.1, nproc=args.nproc,
-                                                  match_frac=True, reverse_match=False)
-            print('\nprogens:')
-            print(progens)
-            print()
+            # ## Link halos in snapshots with caesar progen
+            # # caesar.progen.check_if_progen_is_present(target_caesar_file, 'progen_halo_dm')
+            # progens = caesar.progen.progen_finder(obj_current=source_obj, obj_target=target_obj, 
+            #                                       caesar_file=source_caesar_file, snap_dir=args.snap_dir,
+            #                                       data_type='halo', part_type='dm', recompute=True,
+            #                                       save=False, n_most=args.n_most, min_in_common=0.1, nproc=args.nproc,
+            #                                       match_frac=True, reverse_match=False)
+            # print('\nprogens:')
+            # print(progens)
+            # print()
             
             ## For n_most=1
             '''

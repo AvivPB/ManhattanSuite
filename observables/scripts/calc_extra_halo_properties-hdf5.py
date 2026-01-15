@@ -112,6 +112,11 @@ def append_to_dataset(group, dataset, value, length):
 
 
 
+Lsun = unyt.unyt_quantity(3.8270*(10**33), 'erg/s')
+
+
+
+
 part_types = ['PartType0', 'PartType1', 'PartType2', 'PartType4', 'PartType5']
 # apertures = ['30 kpccm', '50 kpccm']
 # aperture_names = ['30ckpc', '50ckpc']
@@ -186,7 +191,7 @@ elif args.sim_model.lower() == 'obsidian':
 
 
 ## Apertures
-halo_aperture_names = ['3ckpc', '30ckpc', '50ckpc'] + [f'r{delta_value}c' for delta_value in delta_values]
+halo_aperture_names = ['3ckpc', '30ckpc', '50ckpc'] + [f'r{delta_value}c' for delta_value in delta_values] + ['0.5r200c', '0.1r200c']
 central_aperture_names = ['3ckpc', '30ckpc', '50ckpc']
 
 
@@ -262,356 +267,6 @@ gas_phases = {
     ],
 }
 
-'outflow>0':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                    },
-                    'outflow>0_nowind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow>0_onlywind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow>0':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                    },
-                    'inflow>0_nowind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow>0_onlywind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow>1000':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(1e3, 'km/s'),
-                        },
-                    },
-                    'outflow>1000_nowind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(1000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow>1000_onlywind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(1000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow>1000':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-1e3, 'km/s'),
-                        },
-                    },
-                    'inflow>1000_nowind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-1000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow>1000_onlywind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-1000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow>5000':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(5e3, 'km/s'),
-                        },
-                    },
-                    'outflow>5000_nowind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(5000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow>5000_onlywind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(5000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow>5000':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-5e3, 'km/s'),
-                        },
-                    },
-                    'inflow>5000_nowind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-5000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow>5000_onlywind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-5000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow>10000':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(1e4, 'km/s'),
-                        },
-                    },
-                    'outflow>10000_nowind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(1e4, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow>10000_onlywind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(1e4, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow>10000':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-1e4, 'km/s'),
-                        },
-                    },
-                    'inflow>10000_nowind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-1e4, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow>10000_onlywind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-1e4, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow0-300':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '<=': unyt.unyt_quantity(300, 'km/s'),
-                        },
-                    },
-                    'outflow0-300_nowind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '<=': unyt.unyt_quantity(300, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow0-300_onlywind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '<=': unyt.unyt_quantity(300, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow300-1000':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(300, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '<=': unyt.unyt_quantity(1000, 'km/s'),
-                        },
-                    },
-                    'outflow300-1000_nowind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(300, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '<=': unyt.unyt_quantity(1000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow300-1000_onlywind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(300, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '<=': unyt.unyt_quantity(1000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow1000-10000':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(1000, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '<=': unyt.unyt_quantity(10000, 'km/s'),
-                        },
-                    },
-                    'outflow1000-10000_nowind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(1000, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '<=': unyt.unyt_quantity(10000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'outflow1000-10000_onlywind':{
-                        'radial_velocity':{
-                            '>': unyt.unyt_quantity(1000, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '<=': unyt.unyt_quantity(10000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-
-                    'inflow0-300':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '>=': unyt.unyt_quantity(-300, 'km/s'),
-                        },
-                    },
-                    'inflow0-300_nowind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '>=': unyt.unyt_quantity(-300, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow0-300_onlywind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(0, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '>=': unyt.unyt_quantity(-300, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow300-1000':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-300, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '>=': unyt.unyt_quantity(-1000, 'km/s'),
-                        },
-                    },
-                    'inflow300-1000_nowind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-300, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '>=': unyt.unyt_quantity(-1000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow300-1000_onlywind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-300, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '>=': unyt.unyt_quantity(-1000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow1000-10000':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-1000, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '>=': unyt.unyt_quantity(-10000, 'km/s'),
-                        },
-                    },
-                    'inflow1000-10000_nowind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-1000, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '>=': unyt.unyt_quantity(-10000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '==': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-                    'inflow1000-10000_onlywind':{
-                        'radial_velocity':{
-                            '<': unyt.unyt_quantity(-1000, 'km/s'),
-                        },
-                        'radial_velocity':{
-                            '>=': unyt.unyt_quantity(-10000, 'km/s'),
-                        },
-                        'DelayTime':{
-                            '>': unyt.unyt_quantity(0, ''),
-                        },
-                    },
-
 
 ###########################################################################################
 
@@ -675,11 +330,20 @@ with h5py.File(args.output_file, 'r+') as f:
         
 
 
-        ## BH accretion rates and luminosities
+        ## BH accretion rates and bolometric luminosities
         try:
-            create_dataset(group, 'bh_mdot_edd', shape=(group['bh_mdot'].shape[0],), dtype='f8', units='Msun/yr')
-            group['bh_mdot_edd'].resize((group['bh_mdot'].shape[0],))
+            create_dataset(group, 'bh_mdot_edd-bad', shape=(group['bh_mdot'].shape[0],), dtype='f8', units='Msun/yr')
+            group['bh_mdot_edd-bad'].resize((group['bh_mdot'].shape[0],))
             bh_mdot_edd = unyt.unyt_array(group['bh_mdot'], group['bh_mdot'].attrs['units'])/unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            group['bh_mdot_edd-bad'][:] = bh_mdot_edd.in_units('Msun/yr')
+        except Exception as error:
+            print(f'\nError calculating {halo_type} bh_mdot_edd-bad: {error}\n')
+
+        try:
+            create_dataset(group, 'bh_mdot_edd', shape=(group['bh_mass'].shape[0],), dtype='f8', units='Msun/yr')
+            group['bh_mdot_edd'].resize((group['bh_mass'].shape[0],))
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            bh_mdot_edd = (4*np.pi*unyt.G*unyt.mp*bh_mass / (f_rad*unyt.c*unyt.sigma_thomson))
             group['bh_mdot_edd'][:] = bh_mdot_edd.in_units('Msun/yr')
         except Exception as error:
             print(f'\nError calculating {halo_type} bh_mdot_edd: {error}\n')
@@ -691,6 +355,14 @@ with h5py.File(args.output_file, 'r+') as f:
             group[f'bh_Lbol'][:] = Lbol.in_units('erg/s')
         except Exception as error:
             print(f'\nError calculating {halo_type} bh_Lbol: {error}\n')
+
+        try:
+            create_dataset(group, f'bh_Lbol_edd', shape=(group[f'bh_mdot_edd'].shape[0],), dtype='f8', units='erg/s')
+            group[f'bh_Lbol_edd'].resize((group[f'bh_mdot_edd'].shape[0],))
+            Lbol = f_rad * unyt.c**2 * unyt.unyt_array(group['bh_mdot_edd'], group['bh_mdot_edd'].attrs['units'])
+            group[f'bh_Lbol_edd'][:] = Lbol.in_units('erg/s')
+        except Exception as error:
+            print(f'\nError calculating {halo_type} bh_Lbol_edd: {error}\n')
 
         try:
             create_dataset(group, 'bh_mdot_acc', shape=(group['bh_mdot'].shape[0],), dtype='f8', units='Msun/yr')
@@ -708,6 +380,437 @@ with h5py.File(args.output_file, 'r+') as f:
         except Exception as error:
             print(f'\nError calculating {halo_type} bh_Lbol_acc: {error}\n')
             # continue
+
+        try:
+            create_dataset(group, 'bh_fedd_acc', shape=(group['bh_mdot_acc'].shape[0],), dtype='f8', units='1')
+            group['bh_fedd_acc'].resize((group[f'bh_mdot_acc'].shape[0],))
+            bh_mdot = unyt.unyt_array(group['bh_mdot_acc'], group['bh_mdot_acc'].attrs['units'])
+            bh_mdot_edd = unyt.unyt_array(group['bh_mdot_edd'], group['bh_mdot_edd'].attrs['units'])
+            bh_fedd_acc = bh_mdot/bh_mdot_edd
+            group['bh_fedd_acc'][:] = bh_fedd_acc.in_units('1')
+        except Exception as error:
+            print(f'\nError calculating {halo_type} bh_fedd_acc: {error}\n')
+
+        
+        try:
+            ## From Hirschmann+2014, equation 6 & 7, originally from Churazov+2005
+            create_dataset(group, f'bh_Lbol_acc_split', shape=(group[f'bh_mdot_acc'].shape[0],), dtype='f8', units='erg/s')
+            group[f'bh_Lbol_acc_split'].resize((group[f'bh_mdot_acc'].shape[0],))
+            bh_mdot = unyt.unyt_array(group['bh_mdot_acc'], group['bh_mdot_acc'].attrs['units'])
+            bh_Lbol_edd = unyt.unyt_array(group['bh_Lbol_edd'], group['bh_Lbol_edd'].attrs['units'])
+            bh_fedd = unyt.unyt_array(group['bh_fedd_acc'], group['bh_fedd_acc'].attrs['units'])
+            Lbol = unyt.unyt_array(np.zeros(bh_mdot.shape[0]), 'erg/s')
+            # Radiative mode
+            mask_rad = bh_fedd >= bh_fedd_jet_max
+            Lbol[mask_rad] = ((f_rad/(1-f_rad)) * bh_mdot[mask_rad] * unyt.c**2).in_units('erg/s')
+            # Mechanical mode
+            mask_jet = bh_fedd < bh_fedd_jet_max
+            Lbol[mask_jet] = (0.1 * bh_Lbol_edd[mask_jet] * (bh_fedd[mask_jet]*10)**2).in_units('erg/s')
+            group[f'bh_Lbol_acc_split'][:] = Lbol.in_units('erg/s')
+        except Exception as error:
+            print(f'\nError calculating {halo_type} bh_Lbol_acc_split: {error}\n')
+
+        
+        
+        
+        ## BH Luminosities ##########
+
+        for Lbol_type, Lbol_name in zip(
+            ['bh_Lbol', 'bh_Lbol_acc', 'bh_Lbol_acc_split'],
+            ['Lbol', 'Lbol_acc', 'Lbol_acc_split']
+        ):
+
+            ## Florez+2021: Comparing simulations to AGN at z=0.75-2.25 with & without high X-ray luminosity (Lx>10^44 erg/s) AGN ###################################################################################
+            try:
+                ## Hard (2-10 keV) Lx from Lusso+2012 for Type I AGN (high Lbol AGN)
+                ## Table 3, 170 X-ray selected Type I AGN with Mbh available, OLS bisector Row
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Eddington ratio (fedd)
+                create_dataset(group, f'bh_Lx_2-10keV_typeI_from_fedd_Lusso2012-{Lbol_name}', shape=(group[f'bh_fedd_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeI_from_fedd_Lusso2012-{Lbol_name}'].resize((group[f'bh_fedd_acc'].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                fedd = unyt.unyt_array(group['bh_fedd_acc'], group['bh_fedd_acc'].attrs['units'])
+                slope = 0.752
+                intercept = 2.134
+                fedd_min = unyt.unyt_quantity(10**(-intercept/slope), '1')
+                y = slope*np.log10(np.fmax(fedd, fedd_min)) + intercept
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_typeI_from_fedd_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_typeI_from_fedd_Lusso2012-{Lbol_name}: {error}\n')
+
+            try:
+                ## Hard (2-10 keV) Lx from Lusso+2012 for Type II AGN (low Lbol AGN)
+                ## Table 4, 488 X-ray selected Type II AGN with Lbol & M* available, OLS bisector Row
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Eddington ratio (fedd)
+                create_dataset(group, f'bh_Lx_2-10keV_typeII_from_fedd_Lusso2012-{Lbol_name}', shape=(group[f'bh_fedd_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeII_from_fedd_Lusso2012-{Lbol_name}'].resize((group[f'bh_fedd_acc'].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                fedd = unyt.unyt_array(group['bh_fedd_acc'], group['bh_fedd_acc'].attrs['units'])
+                slope = 0.621
+                intercept = 1.947
+                fedd_min = unyt.unyt_quantity(10**(-intercept/slope), '1')
+                y = slope*np.log10(np.fmax(fedd, fedd_min)) + intercept
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_typeII_from_fedd_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_typeII_from_fedd_Lusso2012-{Lbol_name}: {error}\n')
+
+            
+            try:
+                ## Soft (0.5-2 keV) Lx from Lusso+2012 for Type I AGN (high Lbol AGN)
+                ## Table 2, 373 X-ray selected Type I AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Lbol
+                create_dataset(group, f'bh_Lx_0.5-2keV_typeI_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[f'bh_Lbol_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_0.5-2keV_typeI_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.239
+                a2 = 0.059
+                a3 = -0.009
+                b = 1.436
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_0.5-2keV_typeI_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_0.5-2keV_typeI_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+            
+            try:
+                ## Hard (2-10 keV) Lx from Lusso+2012 for Type I AGN (high Lbol AGN)
+                ## Table 2, 373 X-ray selected Type I AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_typeI_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[f'bh_Lbol_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeI_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.288
+                a2 = 0.111
+                a3 = -0.007
+                b = 1.308
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_typeI_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_typeI_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+
+            try:
+                ## B band (0.44 um) luminosity from Lusso+2012 for Type I AGN (high Lbol AGN)
+                ## Table 2, 373 X-ray selected Type I AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lband) with Lbol
+                create_dataset(group, f'bh_LB_0.44um_typeI_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[f'bh_Lbol_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_typeI_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = -0.011
+                a2 = -0.050
+                a3 = 0.065
+                b = 0.769
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_LB_0.44um_typeI_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_LB_0.44um_typeI_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+
+
+            try:
+                ## Soft (0.5-2 keV) Lx from Lusso+2012 for Type II AGN (high Lbol AGN)
+                ## Table 2, 488 X-ray selected Type II AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Lbol
+                create_dataset(group, f'bh_Lx_0.5-2keV_typeII_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_0.5-2keV_typeII_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.217
+                a2 = 0.009
+                a3 = -0.010
+                b = 1.399
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_0.5-2keV_typeII_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_0.5-2keV_typeII_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+
+            try:
+                ## Hard (2-10 keV) Lx from Lusso+2012 for Type II AGN (high Lbol AGN)
+                ## Table 2, 488 X-ray selected Type II AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_typeII_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeII_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.230
+                a2 = 0.050
+                a3 = 0.001
+                b = 1.256
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_typeII_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_typeII_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+
+
+
+            ## Florez+2021: Comparing simulations to AGN at z=0.75-2.25 with & without high X-ray luminosity (Lx>10^44 erg/s) AGN ###################################################################################
+            try:
+                ## Soft (0.5-2 keV) Lx from Hopkins+2007
+                ## authors use fully integrated SEDs of quasars from hard X-rays to radio wavelengths,
+                ## column densities for a given spectral shape, and X-ray luminosities
+                ## to derive a relation between X-ray luminosity and bolometric luminosity
+                create_dataset(group, f'bh_Lx_0.5-2keV_from_Lbol_Hopkins2007-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_0.5-2keV_from_Lbol_Hopkins2007-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = (Lbol/Lsun)*10**(-10.0)
+                c1 = 17.87
+                k1 = 0.28
+                c2 = 10.03
+                k2 = -0.020
+                y = c1*x**k1 + c2*x**k2
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_0.5-2keV_from_Lbol_Hopkins2007-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_0.5-2keV_from_Lbol_Hopkins2007-{Lbol_name}: {error}\n')
+
+            try:
+                ## Hard (2-10 keV) Lx from Hopkins+2007
+                ## authors use fully integrated SEDs of quasars from hard X-rays to radio wavelengths,
+                ## column densities for a given spectral shape, and X-ray luminosities
+                ## to derive a relation between X-ray luminosity and bolometric luminosity
+                create_dataset(group, f'bh_Lx_2-10keV_from_Lbol_Hopkins2007-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_from_Lbol_Hopkins2007-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = (Lbol/Lsun)*10**(-10.0)
+                c1 = 10.83
+                k1 = 0.28
+                c2 = 6.08
+                k2 = -0.020
+                y = c1*x**k1 + c2*x**k2
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_from_Lbol_Hopkins2007-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_from_Lbol_Hopkins2007-{Lbol_name}: {error}\n')
+
+            try:
+                ## B band (0.44 um) Luminosity from Hopkins+2007
+                ## authors use fully integrated SEDs of quasars from hard X-rays to radio wavelengths,
+                ## column densities for a given spectral shape, and X-ray luminosities
+                ## to derive a relation between X-ray luminosity and bolometric luminosity
+                create_dataset(group, f'bh_LB_0.44um_from_Lbol_Hopkins2007-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_from_Lbol_Hopkins2007-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = (Lbol/Lsun)*10**(-10.0)
+                c1 = 6.25
+                k1 = -0.37
+                c2 = 9.00
+                k2 = -0.012
+                y = c1*x**k1 + c2*x**k2
+                Lx = Lbol * 10**(-y)
+                group[f'bh_LB_0.44um_from_Lbol_Hopkins2007-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_LB_0.44um_from_Lbol_Hopkins2007-{Lbol_name}: {error}\n')
+
+            try:
+                ## Mid-IR (15 um) Luminosity from Hopkins+2007
+                ## authors use fully integrated SEDs of quasars from hard X-rays to radio wavelengths,
+                ## column densities for a given spectral shape, and X-ray luminosities
+                ## to derive a relation between X-ray luminosity and bolometric luminosity
+                create_dataset(group, f'bh_Lmir_15um_from_Lbol_Hopkins2007-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lmir_15um_from_Lbol_Hopkins2007-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = (Lbol/Lsun)*10**(-10.0)
+                c1 = 7.40
+                k1 = -0.37
+                c2 = 10.66
+                k2 = -0.014
+                y = c1*x**k1 + c2*x**k2
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lmir_15um_from_Lbol_Hopkins2007-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lmir_15um_from_Lbol_Hopkins2007-{Lbol_name}: {error}\n')
+
+            
+
+            ############################################################################################################
+            ## Hirschmann+2014: AGN luminosity functions and downsizing from cosmological simulations
+            ## Comparing simulations to observed AGN luminosity functions in different bands
+            ## using bolometric corrections from Marconi+2004
+            try:
+                ## Soft (0.5-2 keV) Lx
+                create_dataset(group, f'bh_Lx_0.5-2keV_from_Lbol_Marconi2004-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_0.5-2keV_from_Lbol_Marconi2004-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.22
+                a2 = 0.012
+                a3 = -0.0015
+                b = 1.65
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_0.5-2keV_from_Lbol_Marconi2004-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_0.5-2keV_from_Lbol_Marconi2004-{Lbol_name}: {error}\n')
+
+            try:
+                ## Hard (2-10 keV) Lx
+                create_dataset(group, f'bh_Lx_2-10keV_from_Lbol_Marconi2004-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_from_Lbol_Marconi2004-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.24
+                a2 = 0.012
+                a3 = -0.0015
+                b = 1.54
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_from_Lbol_Marconi2004-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_from_Lbol_Marconi2004-{Lbol_name}: {error}\n')
+
+            try:
+                ## B band (0.44 um) Luminosity
+                create_dataset(group, f'bh_LB_0.44um_from_Lbol_Marconi2004-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_from_Lbol_Marconi2004-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = -0.067
+                a2 = 0.017
+                a3 = -0.0023
+                b = 0.80
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_LB_0.44um_from_Lbol_Marconi2004-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_LB_0.44um_from_Lbol_Marconi2004-{Lbol_name}: {error}\n')
+
+            
+
+            ## Duras+2020 ###################################################################################
+            try:
+                ## 2-10 keV Lx for Type I AGN from Duras+2020, calculated from Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_typeI_from_Lbol_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeI_from_Lbol_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun)
+                a = 12.76
+                b = 12.15
+                c = 18.78
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_typeI_from_Lbol_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_typeI_from_Lbol_Duras2020-{Lbol_name}: {error}\n')
+
+            try:
+                ## 2-10 keV Lx for Type II AGN from Duras+2020, calculated from Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_typeII_from_Lbol_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeII_from_Lbol_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun)
+                a = 10.85
+                b = 11.90
+                c = 19.93
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_typeII_from_Lbol_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_typeII_from_Lbol_Duras2020-{Lbol_name}: {error}\n')
+
+            try:
+                ## 2-10 keV Lx for general AGN from Duras+2020, calculated from Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_general_from_Lbol_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_general_from_Lbol_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun)
+                a = 10.96
+                b = 11.93
+                c = 17.79
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_general_from_Lbol_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_general_from_Lbol_Duras2020-{Lbol_name}: {error}\n')
+
+
+            try:
+                ## Optical B-band (0.44 um) luminosity for general AGN from Duras+2020, calculated from Lbol
+                create_dataset(group, f'bh_LB_0.44um_general_from_Lbol_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_general_from_Lbol_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                # x = np.log10(Lbol/Lsun)
+                # a = 10.96
+                # b = 11.93
+                # c = 17.79
+                y = 5.13
+                L = Lbol/y
+                group[f'bh_LB_0.44um_general_from_Lbol_Duras2020-{Lbol_name}'][:] = L.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_LB_0.44um_general_from_Lbol_Duras2020-{Lbol_name}: {error}\n')
+
+            
+            try:
+                ## 2-10 keV Lx for general AGN from Duras+2020, calculated from Eddington ratio
+                create_dataset(group, f'bh_Lx_2-10keV_general_from_fedd_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_general_from_fedd_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                fedd = unyt.unyt_array(group[f'bh_fedd_acc'], group[f'bh_fedd_acc'].attrs['units'])
+                x = fedd
+                a = 7.51
+                b = 0.05
+                c = 0.61
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_general_from_fedd_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_general_from_fedd_Duras2020-{Lbol_name}: {error}\n')
+
+            try:
+                ## 2-10 keV Lx for general AGN from Duras+2020, calculated from Mbh
+                create_dataset(group, f'bh_Lx_2-10keV_general_from_Mbh_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_general_from_Mbh_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                Mbh = unyt.unyt_array(group[f'bh_mass'], group[f'bh_mass'].attrs['units'])
+                x = np.log10(Mbh.in_units('Msun'))
+                a = 16.75
+                b = 9.22
+                c = 26.14
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_general_from_Mbh_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_general_from_Mbh_Duras2020-{Lbol_name}: {error}\n')
+
+            
+            try:
+                ## Optical B-band (0.44 um) luminosity for general AGN from Duras+2020, calculated from eddington ratio
+                create_dataset(group, f'bh_LB_0.44um_general_from_fedd_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_general_from_fedd_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                # x = np.log10(Lbol/Lsun)
+                # a = 10.96
+                # b = 11.93
+                # c = 17.79
+                y = 5.10
+                L = Lbol/y
+                group[f'bh_LB_0.44um_general_from_fedd_Duras2020-{Lbol_name}'][:] = L.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_LB_0.44um_general_from_fedd_Duras2020-{Lbol_name}: {error}\n')
+
+            try:
+                ## Optical B-band (0.44 um) luminosity for general AGN from Duras+2020, calculated from Mbh
+                create_dataset(group, f'bh_LB_0.44um_general_from_Mbh_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_general_from_Mbh_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                # x = np.log10(Lbol/Lsun)
+                # a = 10.96
+                # b = 11.93
+                # c = 17.79
+                y = 5.05
+                L = Lbol/y
+                group[f'bh_LB_0.44um_general_from_Mbh_Duras2020-{Lbol_name}'][:] = L.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_LB_0.44um_general_from_Mbh_Duras2020-{Lbol_name}: {error}\n')
+        
+            
+
+
 
         
         
@@ -727,8 +830,11 @@ with h5py.File(args.output_file, 'r+') as f:
             group[f'nbh_quasar'].resize((group[f'bh_fedd'].shape[0],))
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
             bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
-            bh_filter = np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= bh_mass_jet_min)
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= bh_mass_jet_min)
+            bh_quasar_high_fedd_filt = bh_fedd >= bh_fedd_jet_max
+            bh_quasar_low_fedd_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            bh_quasar_filter = np.logical_or(bh_quasar_high_fedd_filt, bh_quasar_low_fedd_filt)
+            nbh = unyt.unyt_array(bh_quasar_filter.astype(int), '')
             group['nbh_quasar'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {halo_type} nbh_quasar: {error}\n')
@@ -739,8 +845,11 @@ with h5py.File(args.output_file, 'r+') as f:
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
             bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
             a = unyt.unyt_array(group['a'], group['a'].attrs['units'])
-            bh_filter = np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= a*bh_mass_jet_min)
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= a*bh_mass_jet_min)
+            bh_quasar_high_fedd_filt = bh_fedd >= bh_fedd_jet_max
+            bh_quasar_low_fedd_ascale_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            bh_quasar_filter = np.logical_or(bh_quasar_high_fedd_filt, bh_quasar_low_fedd_ascale_filt)
+            nbh = unyt.unyt_array(bh_quasar_filter.astype(int), '')
             group['nbh_quasar_ascale'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {halo_type} nbh_quasar_ascale: {error}\n')
@@ -749,8 +858,9 @@ with h5py.File(args.output_file, 'r+') as f:
             create_dataset(group, f'nbh_quasar_high_fedd', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
             group[f'nbh_quasar_high_fedd'].resize((group[f'bh_fedd'].shape[0],))
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
-            bh_filter = bh_fedd >= bh_fedd_jet_max
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = bh_fedd >= bh_fedd_jet_max
+            bh_quasar_high_fedd_filt = bh_fedd >= bh_fedd_jet_max
+            nbh = unyt.unyt_array(bh_quasar_high_fedd_filt.astype(int), '')
             group['nbh_quasar_high_fedd'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {halo_type} nbh_quasar_high_fedd: {error}\n')
@@ -760,8 +870,9 @@ with h5py.File(args.output_file, 'r+') as f:
             group[f'nbh_quasar_low_fedd'].resize((group[f'bh_fedd'].shape[0],))
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
             bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
-            bh_filter = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            bh_quasar_low_fedd_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_low_fedd_filt.astype(int), '')
             group['nbh_quasar_low_fedd'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {halo_type} nbh_quasar_low_fedd: {error}\n')
@@ -772,12 +883,58 @@ with h5py.File(args.output_file, 'r+') as f:
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
             bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
             a = unyt.unyt_array(group['a'], group['a'].attrs['units'])
-            bh_filter = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            bh_quasar_low_fedd_ascale_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_low_fedd_ascale_filt.astype(int), '')
             group['nbh_quasar_low_fedd_ascale'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {halo_type} nbh_quasar_low_fedd_ascale: {error}\n')
 
+        try:
+            create_dataset(group, f'nbh_quasar_fedd<0.02', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
+            group[f'nbh_quasar_fedd<0.02'].resize((group[f'bh_fedd'].shape[0],))
+            bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            bh_quasar_fedd002_filt = np.logical_and(np.logical_and(bh_fedd < 0.02, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_fedd002_filt.astype(int), '')
+            group['nbh_quasar_fedd<0.02'][:] = nbh
+        except Exception as error:
+            print(f'\nError calculating {halo_type} nbh_quasar_fedd<0.02: {error}\n')
+
+        try:
+            create_dataset(group, f'nbh_quasar_fedd<0.02_ascale', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
+            group[f'nbh_quasar_fedd<0.02_ascale'].resize((group[f'bh_fedd'].shape[0],))
+            bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            a = unyt.unyt_array(group['a'], group['a'].attrs['units'])
+            bh_quasar_fedd002_ascale_filt = np.logical_and(np.logical_and(bh_fedd < 0.02, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_fedd002_ascale_filt.astype(int), '')
+            group['nbh_quasar_fedd<0.02_ascale'][:] = nbh
+        except Exception as error:
+            print(f'\nError calculating {halo_type} nbh_quasar_fedd<0.02_ascale: {error}\n')
+
+        try:
+            create_dataset(group, f'nbh_quasar_fedd<0.002', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
+            group[f'nbh_quasar_fedd<0.002'].resize((group[f'bh_fedd'].shape[0],))
+            bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            bh_quasar_fedd0002_filt = np.logical_and(np.logical_and(bh_fedd < 0.002, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_fedd0002_filt.astype(int), '')
+            group['nbh_quasar_fedd<0.002'][:] = nbh
+        except Exception as error:
+            print(f'\nError calculating {halo_type} nbh_quasar_fedd<0.002: {error}\n')
+
+        try:
+            create_dataset(group, f'nbh_quasar_fedd<0.002_ascale', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
+            group[f'nbh_quasar_fedd<0.002_ascale'].resize((group[f'bh_fedd'].shape[0],))
+            bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            a = unyt.unyt_array(group['a'], group['a'].attrs['units'])
+            bh_quasar_fedd0002_ascale_filt = np.logical_and(np.logical_and(bh_fedd < 0.002, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_fedd0002_ascale_filt.astype(int), '')
+            group['nbh_quasar_fedd<0.002_ascale'][:] = nbh
+        except Exception as error:
+            print(f'\nError calculating {halo_type} nbh_quasar_fedd<0.002_ascale: {error}\n')
         try:
             create_dataset(group, f'nbh_jet', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
             group[f'nbh_jet'].resize((group[f'bh_fedd'].shape[0],))
@@ -1029,6 +1186,19 @@ with h5py.File(args.output_file, 'r+') as f:
                             except Exception as error:
                                 print(f'\nError calculating {halo_type} f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-gas: {error}\n')
 
+                            ## Mass fraction of gas phase within aperture to total coupled gas mass within aperture
+                            try:
+                                create_dataset(group, f'f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-coupled_gas', shape=(group[f'm{part_type}_{phase_def_name}_{phase_name}_{aperture_name}'].shape[0],), dtype='f8', units='1')
+                                group[f'f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-coupled_gas'].resize((group[f'm{part_type}_{phase_def_name}_{phase_name}_{aperture_name}'].shape[0],))
+                                values_phase = np.nan_to_num(group[f'm{part_type}_{phase_def_name}_{phase_name}_{aperture_name}'][:], nan=0.0, copy=True)
+                                mass_phase = unyt.unyt_array(values_phase, group[f'm{part_type}_{phase_def_name}_{phase_name}_{aperture_name}'].attrs['units'])
+                                values_total = np.nan_to_num(group[f'm{part_type}_Aviv_coupled_gas_{aperture_name}'][:], nan=0.0, copy=True)
+                                mass_total = unyt.unyt_array(values_total, group[f'm{part_type}_Aviv_coupled_gas_{aperture_name}'].attrs['units'])
+                                phase_mass_fraction = mass_phase / mass_total
+                                group[f'f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-coupled_gas'][:] = phase_mass_fraction.in_units('1')
+                            except Exception as error:
+                                print(f'\nError calculating {halo_type} f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-coupled_gas: {error}\n')
+
 
                     
                     ## Instantaneous star formation rate calculations
@@ -1114,9 +1284,34 @@ with h5py.File(args.output_file, 'r+') as f:
                         print(f'\nError calculating {halo_type} m{part_type}_{aperture_name}_gradient_over_mstar: {error}\n')
 
 
+                if part_type == 'PartType5':
+                    try:
+                        create_dataset(group, f'f_{part_type}_phys_{aperture_name}-total', shape=(group[f'm{part_type}_phys_{aperture_name}'].shape[0],), dtype='f8', units='1')
+                        group[f'f_{part_type}_phys_{aperture_name}-total'].resize((group[f'm{part_type}_phys_{aperture_name}'].shape[0],))
+                        values = np.nan_to_num(group[f'm{part_type}_phys_{aperture_name}'][:], nan=0.0, copy=True)
+                        mass_fraction = unyt.unyt_array(values, group[f'm{part_type}_phys_{aperture_name}'].attrs['units'])/unyt.unyt_array(group[f'm_total_{aperture_name}'], group[f'm_total_{aperture_name}'].attrs['units'])
+                        group[f'f_{part_type}_phys_{aperture_name}-total'][:] = mass_fraction.in_units('1')
+                    except Exception as error:
+                        print(f'\nError calculating {halo_type} f_{part_type}_phys_{aperture_name}-total: {error}\n')
+
+                    try:
+                        create_dataset(group, f'f_{part_type}_phys_{aperture_name}-gas', shape=(group[f'm{part_type}_phys_{aperture_name}'].shape[0],), dtype='f8', units='1')
+                        group[f'f_{part_type}_phys_{aperture_name}-gas'].resize((group[f'm{part_type}_phys_{aperture_name}'].shape[0],))
+                        values = np.nan_to_num(group[f'm{part_type}_phys_{aperture_name}'][:], nan=0.0, copy=True)
+                        mass_fraction = unyt.unyt_array(values, group[f'm{part_type}_phys_{aperture_name}'].attrs['units'])/unyt.unyt_array(group[f'mPartType0_{aperture_name}'], group[f'mPartType0_{aperture_name}'].attrs['units'])
+                        group[f'f_{part_type}_phys_{aperture_name}-gas'][:] = mass_fraction.in_units('1')
+                    except Exception as error:
+                        print(f'\nError calculating {halo_type} f_{part_type}_phys_{aperture_name}-gas: {error}\n')
+
+
+
+
 
     
     print('\n\n\n\n\n\n')
+
+
+
 
     
     
@@ -1169,13 +1364,23 @@ with h5py.File(args.output_file, 'r+') as f:
         except Exception as error:
             print(f'\nError calculating {central_type} ssfr_100: {error}\n')
 
-        
-        
-        ## BH accretion rates and luminosities
+
+
+
+        ## BH accretion rates and bolometric luminosities
         try:
-            create_dataset(group, 'bh_mdot_edd', shape=(group['bh_mdot'].shape[0],), dtype='f8', units='Msun/yr')
-            group['bh_mdot_edd'].resize((group['bh_mdot'].shape[0],))
+            create_dataset(group, 'bh_mdot_edd-bad', shape=(group['bh_mdot'].shape[0],), dtype='f8', units='Msun/yr')
+            group['bh_mdot_edd-bad'].resize((group['bh_mdot'].shape[0],))
             bh_mdot_edd = unyt.unyt_array(group['bh_mdot'], group['bh_mdot'].attrs['units'])/unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            group['bh_mdot_edd-bad'][:] = bh_mdot_edd.in_units('Msun/yr')
+        except Exception as error:
+            print(f'\nError calculating {central_type} bh_mdot_edd-bad: {error}\n')
+
+        try:
+            create_dataset(group, 'bh_mdot_edd', shape=(group['bh_mass'].shape[0],), dtype='f8', units='Msun/yr')
+            group['bh_mdot_edd'].resize((group['bh_mass'].shape[0],))
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            bh_mdot_edd = (4*np.pi*unyt.G*unyt.mp*bh_mass / (f_rad*unyt.c*unyt.sigma_thomson))
             group['bh_mdot_edd'][:] = bh_mdot_edd.in_units('Msun/yr')
         except Exception as error:
             print(f'\nError calculating {central_type} bh_mdot_edd: {error}\n')
@@ -1187,6 +1392,14 @@ with h5py.File(args.output_file, 'r+') as f:
             group[f'bh_Lbol'][:] = Lbol.in_units('erg/s')
         except Exception as error:
             print(f'\nError calculating {central_type} bh_Lbol: {error}\n')
+
+        try:
+            create_dataset(group, f'bh_Lbol_edd', shape=(group[f'bh_mdot_edd'].shape[0],), dtype='f8', units='erg/s')
+            group[f'bh_Lbol_edd'].resize((group[f'bh_mdot_edd'].shape[0],))
+            Lbol = f_rad * unyt.c**2 * unyt.unyt_array(group['bh_mdot_edd'], group['bh_mdot_edd'].attrs['units'])
+            group[f'bh_Lbol_edd'][:] = Lbol.in_units('erg/s')
+        except Exception as error:
+            print(f'\nError calculating {central_type} bh_Lbol_edd: {error}\n')
 
         try:
             create_dataset(group, 'bh_mdot_acc', shape=(group['bh_mdot'].shape[0],), dtype='f8', units='Msun/yr')
@@ -1204,6 +1417,437 @@ with h5py.File(args.output_file, 'r+') as f:
         except Exception as error:
             print(f'\nError calculating {central_type} bh_Lbol_acc: {error}\n')
             # continue
+
+        try:
+            create_dataset(group, 'bh_fedd_acc', shape=(group['bh_mdot_acc'].shape[0],), dtype='f8', units='1')
+            group['bh_fedd_acc'].resize((group[f'bh_mdot_acc'].shape[0],))
+            bh_mdot = unyt.unyt_array(group['bh_mdot_acc'], group['bh_mdot_acc'].attrs['units'])
+            bh_mdot_edd = unyt.unyt_array(group['bh_mdot_edd'], group['bh_mdot_edd'].attrs['units'])
+            bh_fedd_acc = bh_mdot/bh_mdot_edd
+            group['bh_fedd_acc'][:] = bh_fedd_acc.in_units('1')
+        except Exception as error:
+            print(f'\nError calculating {central_type} bh_fedd_acc: {error}\n')
+
+        
+        try:
+            ## From Hirschmann+2014, equation 6 & 7, originally from Churazov+2005
+            create_dataset(group, f'bh_Lbol_acc_split', shape=(group[f'bh_mdot_acc'].shape[0],), dtype='f8', units='erg/s')
+            group[f'bh_Lbol_acc_split'].resize((group[f'bh_mdot_acc'].shape[0],))
+            bh_mdot = unyt.unyt_array(group['bh_mdot_acc'], group['bh_mdot_acc'].attrs['units'])
+            bh_Lbol_edd = unyt.unyt_array(group['bh_Lbol_edd'], group['bh_Lbol_edd'].attrs['units'])
+            bh_fedd = unyt.unyt_array(group['bh_fedd_acc'], group['bh_fedd_acc'].attrs['units'])
+            Lbol = unyt.unyt_array(np.zeros(bh_mdot.shape[0]), 'erg/s')
+            # Radiative mode
+            mask_rad = bh_fedd >= bh_fedd_jet_max
+            Lbol[mask_rad] = ((f_rad/(1.-f_rad)) * bh_mdot[mask_rad] * unyt.c**2).in_units('erg/s')
+            # Mechanical mode
+            mask_jet = bh_fedd < bh_fedd_jet_max
+            Lbol[mask_jet] = (0.1 * bh_Lbol_edd[mask_jet] * (bh_fedd[mask_jet]*10)**2).in_units('erg/s')
+            group[f'bh_Lbol_acc_split'][:] = Lbol.in_units('erg/s')
+        except Exception as error:
+            print(f'\nError calculating {central_type} bh_Lbol_acc_split: {error}\n')
+
+        
+
+
+
+
+        ## BH Luminosities ##########
+
+        for Lbol_type, Lbol_name in zip(
+            ['bh_Lbol', 'bh_Lbol_acc', 'bh_Lbol_acc_split'],
+            ['Lbol', 'Lbol_acc', 'Lbol_acc_split']
+        ):
+
+            ## Florez+2021: Comparing simulations to AGN at z=0.75-2.25 with & without high X-ray luminosity (Lx>10^44 erg/s) AGN
+            try:
+                ## Hard (2-10 keV) Lx from Lusso+2012 for Type I AGN (high Lbol AGN)
+                ## Table 3, 170 X-ray selected Type I AGN with Mbh available, OLS bisector Row
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Eddington ratio (fedd)
+                create_dataset(group, f'bh_Lx_2-10keV_typeI_from_fedd_Lusso2012-{Lbol_name}', shape=(group[f'bh_fedd_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeI_from_fedd_Lusso2012-{Lbol_name}'].resize((group[f'bh_fedd_acc'].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                fedd = unyt.unyt_array(group['bh_fedd_acc'], group['bh_fedd_acc'].attrs['units'])
+                slope = 0.752
+                intercept = 2.134
+                fedd_min = unyt.unyt_quantity(10**(-intercept/slope), '1')
+                y = slope*np.log10(np.fmax(fedd, fedd_min)) + intercept
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_typeI_from_fedd_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_sLx_2-10keV_typeI_from_fedd_Lusso2012-{Lbol_name}: {error}\n')
+
+            try:
+                ## Hard (2-10 keV) Lx from Lusso+2012 for Type II AGN (low Lbol AGN)
+                ## Table 4, 488 X-ray selected Type II AGN with Lbol & M* available, OLS bisector Row
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Eddington ratio (fedd)
+                create_dataset(group, f'bh_Lx_2-10keV_typeII_from_fedd_Lusso2012-{Lbol_name}', shape=(group[f'bh_fedd_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeII_from_fedd_Lusso2012-{Lbol_name}'].resize((group[f'bh_fedd_acc'].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                fedd = unyt.unyt_array(group['bh_fedd_acc'], group['bh_fedd_acc'].attrs['units'])
+                slope = 0.621
+                intercept = 1.947
+                fedd_min = unyt.unyt_quantity(10**(-intercept/slope), '1')
+                y = slope*np.log10(np.fmax(fedd, fedd_min)) + intercept
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_typeII_from_fedd_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lx_2-10keV_typeII_from_fedd_Lusso2012-{Lbol_name}: {error}\n')
+
+            
+            try:
+                ## Soft (0.5-2 keV) Lx from Lusso+2012 for Type I AGN (high Lbol AGN)
+                ## Table 2, 373 X-ray selected Type I AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Lbol
+                create_dataset(group, f'bh_Lx_0.5-2keV_typeI_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[f'bh_Lbol_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_0.5-2keV_typeI_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.239
+                a2 = 0.059
+                a3 = -0.009
+                b = 1.436
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_0.5-2keV_typeI_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lx_0.5-2keV_typeI_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+            
+            try:
+                ## Hard (2-10 keV) Lx from Lusso+2012 for Type I AGN (high Lbol AGN)
+                ## Table 2, 373 X-ray selected Type I AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_typeI_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[f'bh_Lbol_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeI_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.288
+                a2 = 0.111
+                a3 = -0.007
+                b = 1.308
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_typeI_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lx_2-10keV_typeI_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+
+            try:
+                ## B band (0.44 um) luminosity from Lusso+2012 for Type I AGN (high Lbol AGN)
+                ## Table 2, 373 X-ray selected Type I AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lband) with Lbol
+                create_dataset(group, f'bh_LB_0.44um_typeI_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[f'bh_Lbol_acc'].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_typeI_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = -0.011
+                a2 = -0.050
+                a3 = 0.065
+                b = 0.769
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_LB_0.44um_typeI_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_LB_0.44um_typeI_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+
+
+            try:
+                ## Soft (0.5-2 keV) Lx from Lusso+2012 for Type II AGN (high Lbol AGN)
+                ## Table 2, 488 X-ray selected Type II AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Lbol
+                create_dataset(group, f'bh_Lx_0.5-2keV_typeII_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_0.5-2keV_typeII_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.217
+                a2 = 0.009
+                a3 = -0.010
+                b = 1.399
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_0.5-2keV_typeII_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lx_0.5-2keV_typeII_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+
+            try:
+                ## Hard (2-10 keV) Lx from Lusso+2012 for Type II AGN (high Lbol AGN)
+                ## Table 2, 488 X-ray selected Type II AGN with spectroscopy+photometry
+                ## Calculated from scaling relation of bolometric correction (BC = Lbol/Lx) with Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_typeII_from_Lbol_Lusso2012-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeII_from_Lbol_Lusso2012-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.230
+                a2 = 0.050
+                a3 = 0.001
+                b = 1.256
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_typeII_from_Lbol_Lusso2012-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lx_2-10keV_typeII_from_Lbol_Lusso2012-{Lbol_name}: {error}\n')
+
+
+
+            ## Florez+2021: Comparing simulations to AGN at z=0.75-2.25 with & without high X-ray luminosity (Lx>10^44 erg/s) AGN
+            try:
+                ## Soft (0.5-2 keV) Lx from Hopkins+2007
+                ## authors use fully integrated SEDs of quasars from hard X-rays to radio wavelengths,
+                ## column densities for a given spectral shape, and X-ray luminosities
+                ## to derive a relation between X-ray luminosity and bolometric luminosity
+                create_dataset(group, f'bh_Lx_0.5-2keV_Hopkins2007-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_0.5-2keV_Hopkins2007-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = (Lbol/Lsun)*10**(-10.0)
+                c1 = 17.87
+                k1 = 0.28
+                c2 = 10.03
+                k2 = -0.020
+                y = c1*x**k1 + c2*x**k2
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_0.5-2keV_Hopkins2007-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lx_0.5-2keV_Hopkins2007-{Lbol_name}: {error}\n')
+
+            try:
+                ## Hard (2-10 keV) Lx from Hopkins+2007
+                ## authors use fully integrated SEDs of quasars from hard X-rays to radio wavelengths,
+                ## column densities for a given spectral shape, and X-ray luminosities
+                ## to derive a relation between X-ray luminosity and bolometric luminosity
+                create_dataset(group, f'bh_Lx_2-10keV_Hopkins2007-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_Hopkins2007-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = (Lbol/Lsun)*10**(-10.0)
+                c1 = 10.83
+                k1 = 0.26
+                c2 = 6.08
+                k2 = -0.02
+                y = c1*x**k1 + c2*x**k2
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_Hopkins2007-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lx_2-10keV_Hopkins2007-{Lbol_name}: {error}\n')
+
+            try:
+                ## B band (0.44 um) Luminosity from Hopkins+2007
+                ## authors use fully integrated SEDs of quasars from hard X-rays to radio wavelengths,
+                ## column densities for a given spectral shape, and X-ray luminosities
+                ## to derive a relation between X-ray luminosity and bolometric luminosity
+                create_dataset(group, f'bh_LB_0.44um_Hopkins2007-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_Hopkins2007-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = (Lbol/Lsun)*10**(-10.0)
+                c1 = 6.25
+                k1 = -0.37
+                c2 = 9.00
+                k2 = -0.012
+                y = c1*x**k1 + c2*x**k2
+                Lx = Lbol * 10**(-y)
+                group[f'bh_LB_0.44um_Hopkins2007-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_LB_0.44um_Hopkins2007-{Lbol_name}: {error}\n')
+
+            try:
+                ## Mid-IR (15 um) Luminosity from Hopkins+2007
+                ## authors use fully integrated SEDs of quasars from hard X-rays to radio wavelengths,
+                ## column densities for a given spectral shape, and X-ray luminosities
+                ## to derive a relation between X-ray luminosity and bolometric luminosity
+                create_dataset(group, f'bh_Lmir_15um_Hopkins2007-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lmir_15um_Hopkins2007-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = (Lbol/Lsun)*10**(-10.0)
+                c1 = 7.40
+                k1 = -0.37
+                c2 = 10.66
+                k2 = -0.014
+                y = c1*x**k1 + c2*x**k2
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lmir_15um_Hopkins2007-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lmir_15um_Hopkins2007-{Lbol_name}: {error}\n')
+
+            
+
+            ## Hirschmann+2014: AGN luminosity functions and downsizing from cosmological simulations
+            ## Comparing simulations to observed AGN luminosity functions in different bands
+            ## using bolometric corrections from Marconi+2004
+            try:
+                ## Soft (0.5-2 keV) Lx
+                create_dataset(group, f'bh_Lx_0.5-2keV_Marconi2004-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_0.5-2keV_Marconi2004-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.22
+                a2 = 0.012
+                a3 = -0.0015
+                b = 1.65
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_0.5-2keV_Marconi2004-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lx_0.5-2keV_Marconi2004-{Lbol_name}: {error}\n')
+
+            try:
+                ## Hard (2-10 keV) Lx
+                create_dataset(group, f'bh_Lx_2-10keV_Marconi2004-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_Marconi2004-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = 0.24
+                a2 = 0.012
+                a3 = -0.0015
+                b = 1.54
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_Lx_2-10keV_Marconi2004-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_Lx_2-10keV_Marconi2004-{Lbol_name}: {error}\n')
+
+            try:
+                ## B band (0.44 um) Luminosity
+                create_dataset(group, f'bh_LB_0.44um_Marconi2004-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_Marconi2004-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun) - 12.0
+                a1 = -0.067
+                a2 = 0.017
+                a3 = -0.0023
+                b = 0.80
+                y = a1*x + a2*x**2 + a3*x**3 + b
+                Lx = Lbol * 10**(-y)
+                group[f'bh_LB_0.44um_Marconi2004-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {central_type} bh_LB_0.44um_Marconi2004-{Lbol_name}: {error}\n')
+
+            
+
+            ## Duras+2020 ###################################################################################
+            try:
+                ## 2-10 keV Lx for Type I AGN from Duras+2020, calculated from Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_typeI_from_Lbol_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeI_from_Lbol_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun)
+                a = 12.76
+                b = 12.15
+                c = 18.78
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_typeI_from_Lbol_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_typeI_from_Lbol_Duras2020-{Lbol_name}: {error}\n')
+
+            try:
+                ## 2-10 keV Lx for Type II AGN from Duras+2020, calculated from Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_typeII_from_Lbol_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_typeII_from_Lbol_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun)
+                a = 10.85
+                b = 11.90
+                c = 19.93
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_typeII_from_Lbol_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_typeII_from_Lbol_Duras2020-{Lbol_name}: {error}\n')
+
+            try:
+                ## 2-10 keV Lx for general AGN from Duras+2020, calculated from Lbol
+                create_dataset(group, f'bh_Lx_2-10keV_general_from_Lbol_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_general_from_Lbol_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                x = np.log10(Lbol/Lsun)
+                a = 10.96
+                b = 11.93
+                c = 17.79
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_general_from_Lbol_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_general_from_Lbol_Duras2020-{Lbol_name}: {error}\n')
+
+
+            try:
+                ## Optical B-band (0.44 um) luminosity for general AGN from Duras+2020, calculated from Lbol
+                create_dataset(group, f'bh_LB_0.44um_general_from_Lbol_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_general_from_Lbol_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                # x = np.log10(Lbol/Lsun)
+                # a = 10.96
+                # b = 11.93
+                # c = 17.79
+                y = 5.13
+                L = Lbol/y
+                group[f'bh_LB_0.44um_general_from_Lbol_Duras2020-{Lbol_name}'][:] = L.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_LB_0.44um_general_from_Lbol_Duras2020-{Lbol_name}: {error}\n')
+
+            
+            try:
+                ## 2-10 keV Lx for general AGN from Duras+2020, calculated from Eddington ratio
+                create_dataset(group, f'bh_Lx_2-10keV_general_from_fedd_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_general_from_fedd_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                fedd = unyt.unyt_array(group[f'bh_fedd_acc'], group[f'bh_fedd_acc'].attrs['units'])
+                x = fedd
+                a = 7.51
+                b = 0.05
+                c = 0.61
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_general_from_fedd_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_general_from_fedd_Duras2020-{Lbol_name}: {error}\n')
+
+            try:
+                ## 2-10 keV Lx for general AGN from Duras+2020, calculated from Mbh
+                create_dataset(group, f'bh_Lx_2-10keV_general_from_Mbh_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_Lx_2-10keV_general_from_Mbh_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                Mbh = unyt.unyt_array(group[f'bh_mass'], group[f'bh_mass'].attrs['units'])
+                x = np.log10(Mbh.in_units('Msun'))
+                a = 16.75
+                b = 9.22
+                c = 26.14
+                y = a*(1+(x/b)**c)
+                Lx = Lbol/y
+                group[f'bh_Lx_2-10keV_general_from_Mbh_Duras2020-{Lbol_name}'][:] = Lx.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_Lx_2-10keV_general_from_Mbh_Duras2020-{Lbol_name}: {error}\n')
+
+            
+            try:
+                ## Optical B-band (0.44 um) luminosity for general AGN from Duras+2020, calculated from eddington ratio
+                create_dataset(group, f'bh_LB_0.44um_general_from_fedd_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_general_from_fedd_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                # x = np.log10(Lbol/Lsun)
+                # a = 10.96
+                # b = 11.93
+                # c = 17.79
+                y = 5.10
+                L = Lbol/y
+                group[f'bh_LB_0.44um_general_from_fedd_Duras2020-{Lbol_name}'][:] = L.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_LB_0.44um_general_from_fedd_Duras2020-{Lbol_name}: {error}\n')
+
+            try:
+                ## Optical B-band (0.44 um) luminosity for general AGN from Duras+2020, calculated from Mbh
+                create_dataset(group, f'bh_LB_0.44um_general_from_Mbh_Duras2020-{Lbol_name}', shape=(group[Lbol_type].shape[0],), dtype='f8', units='erg/s')
+                group[f'bh_LB_0.44um_general_from_Mbh_Duras2020-{Lbol_name}'].resize((group[Lbol_type].shape[0],))
+                Lbol = unyt.unyt_array(group[Lbol_type], group[Lbol_type].attrs['units'])
+                # x = np.log10(Lbol/Lsun)
+                # a = 10.96
+                # b = 11.93
+                # c = 17.79
+                y = 5.05
+                L = Lbol/y
+                group[f'bh_LB_0.44um_general_from_Mbh_Duras2020-{Lbol_name}'][:] = L.in_units('erg/s')
+            except Exception as error:
+                print(f'\nError calculating {halo_type} bh_LB_0.44um_general_from_Mbh_Duras2020-{Lbol_name}: {error}\n')
+
+
+
 
         
         
@@ -1223,8 +1867,11 @@ with h5py.File(args.output_file, 'r+') as f:
             group[f'nbh_quasar'].resize((group[f'bh_fedd'].shape[0],))
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
             bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
-            bh_filter = np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= bh_mass_jet_min)
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= bh_mass_jet_min)
+            bh_quasar_high_fedd_filt = bh_fedd >= bh_fedd_jet_max
+            bh_quasar_low_fedd_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            bh_quasar_filter = np.logical_or(bh_quasar_high_fedd_filt, bh_quasar_low_fedd_filt)
+            nbh = unyt.unyt_array(bh_quasar_filter.astype(int), '')
             group['nbh_quasar'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {central_type} nbh_quasar: {error}\n')
@@ -1235,8 +1882,11 @@ with h5py.File(args.output_file, 'r+') as f:
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
             bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
             a = unyt.unyt_array(group['a'], group['a'].attrs['units'])
-            bh_filter = np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= a*bh_mass_jet_min)
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= a*bh_mass_jet_min)
+            bh_quasar_high_fedd_filt = bh_fedd >= bh_fedd_jet_max
+            bh_quasar_low_fedd_ascale_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            bh_quasar_filter = np.logical_or(bh_quasar_high_fedd_filt, bh_quasar_low_fedd_ascale_filt)
+            nbh = unyt.unyt_array(bh_quasar_filter.astype(int), '')
             group['nbh_quasar_ascale'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {central_type} nbh_quasar_ascale: {error}\n')
@@ -1245,8 +1895,9 @@ with h5py.File(args.output_file, 'r+') as f:
             create_dataset(group, f'nbh_quasar_high_fedd', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
             group[f'nbh_quasar_high_fedd'].resize((group[f'bh_fedd'].shape[0],))
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
-            bh_filter = bh_fedd >= bh_fedd_jet_max
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = bh_fedd >= bh_fedd_jet_max
+            bh_quasar_high_fedd_filt = bh_fedd >= bh_fedd_jet_max
+            nbh = unyt.unyt_array(bh_quasar_high_fedd_filt.astype(int), '')
             group['nbh_quasar_high_fedd'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {central_type} nbh_quasar_high_fedd: {error}\n')
@@ -1256,8 +1907,9 @@ with h5py.File(args.output_file, 'r+') as f:
             group[f'nbh_quasar_low_fedd'].resize((group[f'bh_fedd'].shape[0],))
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
             bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
-            bh_filter = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            bh_quasar_low_fedd_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_low_fedd_filt.astype(int), '')
             group['nbh_quasar_low_fedd'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {central_type} nbh_quasar_low_fedd: {error}\n')
@@ -1268,11 +1920,58 @@ with h5py.File(args.output_file, 'r+') as f:
             bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
             bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
             a = unyt.unyt_array(group['a'], group['a'].attrs['units'])
-            bh_filter = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
-            nbh = unyt.unyt_array(bh_filter.astype(int), '')
+            # bh_filter = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            bh_quasar_low_fedd_ascale_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_low_fedd_ascale_filt.astype(int), '')
             group['nbh_quasar_low_fedd_ascale'][:] = nbh
         except Exception as error:
             print(f'\nError calculating {central_type} nbh_quasar_low_fedd_ascale: {error}\n')
+
+        try:
+            create_dataset(group, f'nbh_quasar_fedd<0.02', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
+            group[f'nbh_quasar_fedd<0.02'].resize((group[f'bh_fedd'].shape[0],))
+            bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            bh_quasar_fedd002_filt = np.logical_and(np.logical_and(bh_fedd < 0.02, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_fedd002_filt.astype(int), '')
+            group['nbh_quasar_fedd<0.02'][:] = nbh
+        except Exception as error:
+            print(f'\nError calculating {central_type} nbh_quasar_fedd<0.02: {error}\n')
+
+        try:
+            create_dataset(group, f'nbh_quasar_fedd<0.02_ascale', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
+            group[f'nbh_quasar_fedd<0.02_ascale'].resize((group[f'bh_fedd'].shape[0],))
+            bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            a = unyt.unyt_array(group['a'], group['a'].attrs['units'])
+            bh_quasar_fedd002_ascale_filt = np.logical_and(np.logical_and(bh_fedd < 0.02, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_fedd002_ascale_filt.astype(int), '')
+            group['nbh_quasar_fedd<0.02_ascale'][:] = nbh
+        except Exception as error:
+            print(f'\nError calculating {central_type} nbh_quasar_fedd<0.02_ascale: {error}\n')
+
+        try:
+            create_dataset(group, f'nbh_quasar_fedd<0.002', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
+            group[f'nbh_quasar_fedd<0.002'].resize((group[f'bh_fedd'].shape[0],))
+            bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            bh_quasar_fedd0002_filt = np.logical_and(np.logical_and(bh_fedd < 0.002, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_fedd0002_filt.astype(int), '')
+            group['nbh_quasar_fedd<0.002'][:] = nbh
+        except Exception as error:
+            print(f'\nError calculating {central_type} nbh_quasar_fedd<0.002: {error}\n')
+
+        try:
+            create_dataset(group, f'nbh_quasar_fedd<0.002_ascale', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
+            group[f'nbh_quasar_fedd<0.002_ascale'].resize((group[f'bh_fedd'].shape[0],))
+            bh_fedd = unyt.unyt_array(group['bh_fedd'], group['bh_fedd'].attrs['units'])
+            bh_mass = unyt.unyt_array(group['bh_mass'], group['bh_mass'].attrs['units'])
+            a = unyt.unyt_array(group['a'], group['a'].attrs['units'])
+            bh_quasar_fedd0002_ascale_filt = np.logical_and(np.logical_and(bh_fedd < 0.002, bh_mass <= a*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+            nbh = unyt.unyt_array(bh_quasar_fedd0002_ascale_filt.astype(int), '')
+            group['nbh_quasar_fedd<0.002_ascale'][:] = nbh
+        except Exception as error:
+            print(f'\nError calculating {central_type} nbh_quasar_fedd<0.002_ascale: {error}\n')
 
         try:
             create_dataset(group, f'nbh_jet', shape=(group[f'bh_fedd'].shape[0],), dtype='f8', units='1')
@@ -1451,7 +2150,7 @@ with h5py.File(args.output_file, 'r+') as f:
                     #     mass_loading_factor = m_new / sfr
                     #     group[f'mass_loading_factor_{aperture_name}'][:] = mass_loading_factor.in_units('1')
                     # except Exception as error:
-                    #     print(f'\nError calculating {halo_type} mass_loading_factor_{aperture_name}: {error}\n')
+                    #     print(f'\nError calculating {central_type} mass_loading_factor_{aperture_name}: {error}\n')
 
                     ## Approximate wind launch rate within aperture
                     try:
@@ -1519,6 +2218,19 @@ with h5py.File(args.output_file, 'r+') as f:
                                 group[f'f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-gas'][:] = phase_mass_fraction.in_units('1')
                             except Exception as error:
                                 print(f'\nError calculating {central_type} f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-gas: {error}\n')
+
+                            ## Mass fraction of gas phase within aperture to total coupled gas mass within aperture
+                            try:
+                                create_dataset(group, f'f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-coupled_gas', shape=(group[f'm{part_type}_{phase_def_name}_{phase_name}_{aperture_name}'].shape[0],), dtype='f8', units='1')
+                                group[f'f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-coupled_gas'].resize((group[f'm{part_type}_{phase_def_name}_{phase_name}_{aperture_name}'].shape[0],))
+                                values_phase = np.nan_to_num(group[f'm{part_type}_{phase_def_name}_{phase_name}_{aperture_name}'][:], nan=0.0, copy=True)
+                                mass_phase = unyt.unyt_array(values_phase, group[f'm{part_type}_{phase_def_name}_{phase_name}_{aperture_name}'].attrs['units'])
+                                values_total = np.nan_to_num(group[f'm{part_type}_Aviv_coupled_gas_{aperture_name}'][:], nan=0.0, copy=True)
+                                mass_total = unyt.unyt_array(values_total, group[f'm{part_type}_Aviv_coupled_gas_{aperture_name}'].attrs['units'])
+                                phase_mass_fraction = mass_phase / mass_total
+                                group[f'f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-coupled_gas'][:] = phase_mass_fraction.in_units('1')
+                            except Exception as error:
+                                print(f'\nError calculating {central_type} f_{part_type}_{phase_def_name}_{phase_name}_{aperture_name}-coupled_gas: {error}\n')
 
 
                     
@@ -1603,6 +2315,26 @@ with h5py.File(args.output_file, 'r+') as f:
                         group[f'm{part_type}_{aperture_name}_gradient_over_mstar'][:] = ssfr.in_units('yr**-1')
                     except Exception as error:
                         print(f'\nError calculating {central_type} m{part_type}_{aperture_name}_gradient_over_mstar: {error}\n')
+
+
+                if part_type == 'PartType5':
+                    try:
+                        create_dataset(group, f'f_{part_type}_phys_{aperture_name}-total', shape=(group[f'm{part_type}_phys_{aperture_name}'].shape[0],), dtype='f8', units='1')
+                        group[f'f_{part_type}_phys_{aperture_name}-total'].resize((group[f'm{part_type}_phys_{aperture_name}'].shape[0],))
+                        values = np.nan_to_num(group[f'm{part_type}_phys_{aperture_name}'][:], nan=0.0, copy=True)
+                        mass_fraction = unyt.unyt_array(values, group[f'm{part_type}_phys_{aperture_name}'].attrs['units'])/unyt.unyt_array(group[f'm_total_{aperture_name}'], group[f'm_total_{aperture_name}'].attrs['units'])
+                        group[f'f_{part_type}_phys_{aperture_name}-total'][:] = mass_fraction.in_units('1')
+                    except Exception as error:
+                        print(f'\nError calculating {central_type} f_{part_type}_phys_{aperture_name}-total: {error}\n')
+
+                    try:
+                        create_dataset(group, f'f_{part_type}_phys_{aperture_name}-gas', shape=(group[f'm{part_type}_phys_{aperture_name}'].shape[0],), dtype='f8', units='1')
+                        group[f'f_{part_type}_phys_{aperture_name}-gas'].resize((group[f'm{part_type}_phys_{aperture_name}'].shape[0],))
+                        values = np.nan_to_num(group[f'm{part_type}_phys_{aperture_name}'][:], nan=0.0, copy=True)
+                        mass_fraction = unyt.unyt_array(values, group[f'm{part_type}_phys_{aperture_name}'].attrs['units'])/unyt.unyt_array(group[f'mPartType0_{aperture_name}'], group[f'mPartType0_{aperture_name}'].attrs['units'])
+                        group[f'f_{part_type}_phys_{aperture_name}-gas'][:] = mass_fraction.in_units('1')
+                    except Exception as error:
+                        print(f'\nError calculating {central_type} f_{part_type}_phys_{aperture_name}-gas: {error}\n')
 
 
 print('\n\nDone!\n')

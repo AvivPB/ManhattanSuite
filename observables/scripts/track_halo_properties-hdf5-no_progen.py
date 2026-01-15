@@ -196,6 +196,10 @@ elif args.sim_model.lower() == 'obsidian':
     # Obsidian jet feedback criteria
     bh_mass_jet_min = unyt.unyt_quantity(5e7, 'Msun')
     bh_fedd_jet_max = unyt.unyt_quantity(0.03, '1')
+if args.sim_model.lower() == 'manhattan':
+    # Simba jet feedback criteria
+    bh_mass_jet_min = unyt.unyt_quantity(10**7.5, 'Msun')
+    bh_fedd_jet_max = unyt.unyt_quantity(0.2, '1')
 
 
 ###########################################################################################
@@ -1401,8 +1405,8 @@ for target_snap_num, target_halo_id in zip(args.target_snap_nums, args.target_ha
 
 
             ## Calculate properties within different apertures
-            aperture_names = ['3ckpc', '30ckpc', '50ckpc'] + [f'r{delta_value}c' for delta_value in delta_values]
-            apertures = [target_snap.arr(3, 'kpccm'), target_snap.arr(30, 'kpccm'), target_snap.arr(50, 'kpccm')] + [halo.virial_quantities[f'r{delta_value}c'].in_units('kpccm') for delta_value in delta_values]
+            aperture_names = ['3ckpc', '30ckpc', '50ckpc'] + [f'r{delta_value}c' for delta_value in delta_values] + ['0.5r200c', '0.1r200c']
+            apertures = [target_snap.arr(3, 'kpccm'), target_snap.arr(30, 'kpccm'), target_snap.arr(50, 'kpccm')] + [halo.virial_quantities[f'r{delta_value}c'].in_units('kpccm') for delta_value in delta_values] + [0.5*halo.virial_quantities['r200c'].in_units('kpccm'), 0.1*halo.virial_quantities['r200c'].in_units('kpccm')]
             for aperture, aperture_name in zip(apertures, aperture_names):
                 print(f'\n\nCalculating properties within aperture: {aperture_name} = {aperture}\n')
                 sphere = target_snap.sphere(minpotpos, aperture)
@@ -1600,8 +1604,13 @@ for target_snap_num, target_halo_id in zip(args.target_snap_nums, args.target_ha
                         create_dataset(group, f'n{part_type}_quasar_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_quasar_ascale_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_quasar_high_fedd_{aperture_name}', dtype='f8', units='1')
+                        # create_dataset(group, f'n{part_type}_quasar_high_fedd_ascale_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_quasar_low_fedd_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_quasar_low_fedd_ascale_{aperture_name}', dtype='f8', units='1')
+                        create_dataset(group, f'n{part_type}_quasar_fedd<0.02_{aperture_name}', dtype='f8', units='1')
+                        create_dataset(group, f'n{part_type}_quasar_fedd<0.02_ascale_{aperture_name}', dtype='f8', units='1')
+                        create_dataset(group, f'n{part_type}_quasar_fedd<0.002_{aperture_name}', dtype='f8', units='1')
+                        create_dataset(group, f'n{part_type}_quasar_fedd<0.002_ascale_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_jets_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_jets_ascale_{aperture_name}', dtype='f8', units='1')
                         # if not bh_properties_good:
@@ -1616,47 +1625,105 @@ for target_snap_num, target_halo_id in zip(args.target_snap_nums, args.target_ha
                             # bh_fedd_jet_max = target_snap.arr(0.2, '1')
 
                             bh_no_accretion_filter = np.where(bh_fedd == unyt.unyt_quantity(0, ''))[0]
-                            bh_quasar_filter = np.where(np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= bh_mass_jet_min))[0]
-                            bh_quasar_ascale_filter = np.where(np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= a_target*bh_mass_jet_min))[0]
-                            bh_quasar_high_fedd_filter = np.where(bh_fedd >= bh_fedd_jet_max)[0]
-                            bh_quasar_low_fedd_filter = np.where(np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, '')))[0]
-                            bh_quasar_low_fedd_ascale_filter = np.where(np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a_target*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, '')))[0]
+
+
+                            bh_quasar_high_fedd_filt = bh_fedd >= bh_fedd_jet_max
+                            bh_quasar_low_fedd_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+                            bh_quasar_low_fedd_ascale_filt = np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a_target*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+                            bh_quasar_fedd002_filt = np.logical_and(np.logical_and(bh_fedd < 0.02, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+                            bh_quasar_fedd002_ascale_filt = np.logical_and(np.logical_and(bh_fedd < 0.02, bh_mass <= a_target*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+                            bh_quasar_fedd0002_filt = np.logical_and(np.logical_and(bh_fedd < 0.002, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+                            bh_quasar_fedd0002_ascale_filt = np.logical_and(np.logical_and(bh_fedd < 0.002, bh_mass <= a_target*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, ''))
+
+                            bh_quasar_filter = np.where(np.logical_or(bh_quasar_high_fedd_filt, bh_quasar_low_fedd_filt))[0]
+                            bh_quasar_ascale_filter = np.where(np.logical_or(bh_quasar_high_fedd_filt, bh_quasar_low_fedd_ascale_filt))[0]
+                            # bh_quasar_filter = np.where(np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= bh_mass_jet_min))[0]
+                            # bh_quasar_ascale_filter = np.where(np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= a_target*bh_mass_jet_min))[0]
+
+                            bh_quasar_high_fedd_filter = np.where(bh_quasar_high_fedd_filt)[0]
+
+                            bh_quasar_low_fedd_filter = np.where(bh_quasar_low_fedd_filt)[0]
+                            bh_quasar_low_fedd_ascale_filter = np.where(bh_quasar_low_fedd_ascale_filt)[0]
+
+                            bh_quasar_fedd002_filter = np.where(bh_quasar_fedd002_filt)[0]
+                            bh_quasar_fedd002_ascale_filter = np.where(bh_quasar_fedd002_ascale_filt)[0]
+                            
+                            bh_quasar_fedd0002_filter = np.where(bh_quasar_fedd0002_filt)[0]
+                            bh_quasar_fedd0002_ascale_filter = np.where(bh_quasar_fedd0002_ascale_filt)[0]
+
                             bh_jet_filter = np.where(np.logical_and(np.logical_and(bh_mass > bh_mass_jet_min, bh_fedd < bh_fedd_jet_max), bh_fedd > unyt.unyt_quantity(0, '')))[0]
                             bh_jet_ascale_filter = np.where(np.logical_and(np.logical_and(bh_mass > a_target*bh_mass_jet_min, bh_fedd < bh_fedd_jet_max), bh_fedd > unyt.unyt_quantity(0, '')))[0]
 
+
                             print('\nbh_no_accretion_filter:')
                             print(bh_no_accretion_filter)
+
                             print('\nbh_quasar_filter:')
                             print(bh_quasar_filter)
                             print('\nbh_quasar_ascale_filter:')
                             print(bh_quasar_ascale_filter)
+
                             print('\nbh_quasar_high_fedd_filter:')
                             print(bh_quasar_high_fedd_filter)
+
                             print('\nbh_quasar_low_fedd_filter:')
                             print(bh_quasar_low_fedd_filter)
                             print('\nbh_quasar_low_fedd_ascale_filter:')
                             print(bh_quasar_low_fedd_ascale_filter)
+
+                            print('\nbh_quasar_fedd<0.02_filter:')
+                            print(bh_quasar_fedd002_filter)
+                            print('\nbh_quasar_fedd<0.02_ascale_filter:')
+                            print(bh_quasar_fedd002_ascale_filter)
+
+                            print('\nbh_quasar_fedd<0.002_filter:')
+                            print(bh_quasar_fedd0002_filter)
+                            print('\nbh_quasar_fedd<0.002_ascale_filter:')
+                            print(bh_quasar_fedd0002_ascale_filter)
+
                             print('\nbh_jet_filter:')
                             print(bh_jet_filter)
                             print('\nbh_jet_ascale_filter:')
                             print(bh_jet_ascale_filter)
                             print()
 
+
                             nbh_no_accretion = len(bh_no_accretion_filter)
+
                             nbh_quasar = len(bh_quasar_filter)
                             nbh_quasar_ascale = len(bh_quasar_ascale_filter)
+
                             nbh_quasar_high_fedd = len(bh_quasar_high_fedd_filter)
+
                             nbh_quasar_low_fedd = len(bh_quasar_low_fedd_filter)
                             nbh_quasar_low_fedd_ascale = len(bh_quasar_low_fedd_ascale_filter)
+
+                            nbh_quasar_fedd002 = len(bh_quasar_fedd002_filter)
+                            nbh_quasar_fedd002_ascale = len(bh_quasar_fedd002_ascale_filter)
+
+                            nbh_quasar_fedd0002 = len(bh_quasar_fedd0002_filter)
+                            nbh_quasar_fedd0002_ascale = len(bh_quasar_fedd0002_ascale_filter)
+
                             nbh_jet = len(bh_jet_filter)
                             nbh_jet_ascale = len(bh_jet_ascale_filter)
 
+
                             append_to_dataset(group, f'n{part_type}_no_accretion_{aperture_name}', nbh_no_accretion, curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_{aperture_name}', nbh_quasar, curr_length)
                             append_to_dataset(group, f'n{part_type}_quasar_ascale_{aperture_name}', nbh_quasar_ascale, curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_high_fedd_{aperture_name}', nbh_quasar_high_fedd, curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_low_fedd_{aperture_name}', nbh_quasar_low_fedd, curr_length)
                             append_to_dataset(group, f'n{part_type}_quasar_low_fedd_ascale_{aperture_name}', nbh_quasar_low_fedd_ascale, curr_length)
+
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.02_{aperture_name}', nbh_quasar_fedd002, curr_length)
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.02_ascale_{aperture_name}', nbh_quasar_fedd002_ascale, curr_length)
+
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.002_{aperture_name}', nbh_quasar_fedd0002, curr_length)
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.002_ascale_{aperture_name}', nbh_quasar_fedd0002_ascale, curr_length)
+
                             append_to_dataset(group, f'n{part_type}_jets_{aperture_name}', nbh_jet, curr_length)
                             append_to_dataset(group, f'n{part_type}_jets_ascale_{aperture_name}', nbh_jet_ascale, curr_length)
 
@@ -1664,11 +1731,21 @@ for target_snap_num, target_halo_id in zip(args.target_snap_nums, args.target_ha
                             print(f'Bad {halo_type} n{part_type}_no_accretion/quasar/jets_{aperture_name}')
                             print(error)
                             append_to_dataset(group, f'n{part_type}_no_accretion_{aperture_name}', 0., curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_{aperture_name}', 0., curr_length)
                             append_to_dataset(group, f'n{part_type}_quasar_ascale_{aperture_name}', 0., curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_high_fedd_{aperture_name}', 0., curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_low_fedd_{aperture_name}', 0., curr_length)
                             append_to_dataset(group, f'n{part_type}_quasar_low_fedd_ascale_{aperture_name}', 0., curr_length)
+
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.02_{aperture_name}', 0., curr_length)
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.02_ascale_{aperture_name}', 0., curr_length)
+
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.002_{aperture_name}', 0., curr_length)
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.002_ascale_{aperture_name}', 0., curr_length)
+
                             append_to_dataset(group, f'n{part_type}_jets_{aperture_name}', 0., curr_length)
                             append_to_dataset(group, f'n{part_type}_jets_ascale_{aperture_name}', 0., curr_length)
 
@@ -1736,6 +1813,22 @@ for target_snap_num, target_halo_id in zip(args.target_snap_nums, args.target_ha
                 create_dataset(group, f'{quant}', dtype='f8', units=str(halo.virial_quantities[f'{quant}'].units))
                 # prop_dict[halo_type][f'{quant}'].append(halo.virial_quantities[f'{quant}'])
                 append_to_dataset(group, f'{quant}', halo.virial_quantities[f'{quant}'], curr_length)
+
+            
+            create_dataset(group, 'bh_mdot', dtype='f8', units='Msun/yr')
+            try:
+                append_to_dataset(group, 'bh_mdot', central.bhmdot.in_units('Msun/yr'), curr_length)
+            except:
+                print(f'Bad {halo_type} bh_mdot')
+                append_to_dataset(group, 'bh_mdot', 0., curr_length)
+    
+            create_dataset(group, 'bh_fedd', dtype='f8', units='1')
+            try:
+                append_to_dataset(group, 'bh_fedd', central.bh_fedd.in_units(''), curr_length)
+            except:
+                print(f'Bad {halo_type} bh_fedd')
+                append_to_dataset(group, 'bh_fedd', 0., curr_length)
+
     
             # first_time(prop_dict[halo_type], 'sfr')
             create_dataset(group, 'sfr', dtype='f8', units='Msun/yr')
@@ -2254,8 +2347,13 @@ for target_snap_num, target_halo_id in zip(args.target_snap_nums, args.target_ha
                         create_dataset(group, f'n{part_type}_quasar_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_quasar_ascale_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_quasar_high_fedd_{aperture_name}', dtype='f8', units='1')
+                        # create_dataset(group, f'n{part_type}_quasar_high_fedd_ascale_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_quasar_low_fedd_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_quasar_low_fedd_ascale_{aperture_name}', dtype='f8', units='1')
+                        create_dataset(group, f'n{part_type}_quasar_fedd<0.02_{aperture_name}', dtype='f8', units='1')
+                        create_dataset(group, f'n{part_type}_quasar_fedd<0.02_ascale_{aperture_name}', dtype='f8', units='1')
+                        create_dataset(group, f'n{part_type}_quasar_fedd<0.002_{aperture_name}', dtype='f8', units='1')
+                        create_dataset(group, f'n{part_type}_quasar_fedd<0.002_ascale_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_jets_{aperture_name}', dtype='f8', units='1')
                         create_dataset(group, f'n{part_type}_jets_ascale_{aperture_name}', dtype='f8', units='1')
                         # if not bh_properties_good:
@@ -2270,58 +2368,116 @@ for target_snap_num, target_halo_id in zip(args.target_snap_nums, args.target_ha
                             # bh_fedd_jet_max = target_snap.arr(0.2, '1')
 
                             bh_no_accretion_filter = np.where(bh_fedd == unyt.unyt_quantity(0, ''))[0]
+
                             bh_quasar_filter = np.where(np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= bh_mass_jet_min))[0]
                             bh_quasar_ascale_filter = np.where(np.logical_and(bh_fedd > unyt.unyt_quantity(0, ''), bh_mass <= a_target*bh_mass_jet_min))[0]
+
                             bh_quasar_high_fedd_filter = np.where(bh_fedd >= bh_fedd_jet_max)[0]
-                            bh_quasar_low_fedd_filter = np.where(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min))[0]
-                            bh_quasar_low_fedd_ascale_filter = np.where(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a_target*bh_mass_jet_min))[0]
+
+                            bh_quasar_low_fedd_filter = np.where(np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, '')))[0]
+                            bh_quasar_low_fedd_ascale_filter = np.where(np.logical_and(np.logical_and(bh_fedd < bh_fedd_jet_max, bh_mass <= a_target*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, '')))[0]
+
+                            bh_quasar_fedd002_filter = np.where(np.logical_and(np.logical_and(bh_fedd < 0.02, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, '')))[0]
+                            bh_quasar_fedd002_ascale_filter = np.where(np.logical_and(np.logical_and(bh_fedd < 0.02, bh_mass <= a_target*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, '')))[0]
+    
+                            bh_quasar_fedd0002_filter = np.where(np.logical_and(np.logical_and(bh_fedd < 0.002, bh_mass <= bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, '')))[0]
+                            bh_quasar_fedd0002_ascale_filter = np.where(np.logical_and(np.logical_and(bh_fedd < 0.002, bh_mass <= a_target*bh_mass_jet_min), bh_fedd > unyt.unyt_quantity(0, '')))[0]
+
                             bh_jet_filter = np.where(np.logical_and(np.logical_and(bh_mass > bh_mass_jet_min, bh_fedd < bh_fedd_jet_max), bh_fedd > unyt.unyt_quantity(0, '')))[0]
                             bh_jet_ascale_filter = np.where(np.logical_and(np.logical_and(bh_mass > a_target*bh_mass_jet_min, bh_fedd < bh_fedd_jet_max), bh_fedd > unyt.unyt_quantity(0, '')))[0]
 
+
                             print('\nbh_no_accretion_filter:')
                             print(bh_no_accretion_filter)
+
                             print('\nbh_quasar_filter:')
                             print(bh_quasar_filter)
                             print('\nbh_quasar_ascale_filter:')
                             print(bh_quasar_ascale_filter)
+
                             print('\nbh_quasar_high_fedd_filter:')
                             print(bh_quasar_high_fedd_filter)
+
                             print('\nbh_quasar_low_fedd_filter:')
                             print(bh_quasar_low_fedd_filter)
                             print('\nbh_quasar_low_fedd_ascale_filter:')
                             print(bh_quasar_low_fedd_ascale_filter)
+
+                            print('\nbh_quasar_fedd<0.02_filter:')
+                            print(bh_quasar_fedd002_filter)
+                            print('\nbh_quasar_fedd<0.02_ascale_filter:')
+                            print(bh_quasar_fedd002_ascale_filter)
+
+                            print('\nbh_quasar_fedd<0.002_filter:')
+                            print(bh_quasar_fedd0002_filter)
+                            print('\nbh_quasar_fedd<0.002_ascale_filter:')
+                            print(bh_quasar_fedd0002_ascale_filter)
+
                             print('\nbh_jet_filter:')
                             print(bh_jet_filter)
                             print('\nbh_jet_ascale_filter:')
                             print(bh_jet_ascale_filter)
                             print()
 
+
                             nbh_no_accretion = len(bh_no_accretion_filter)
+
                             nbh_quasar = len(bh_quasar_filter)
                             nbh_quasar_ascale = len(bh_quasar_ascale_filter)
+
                             nbh_quasar_high_fedd = len(bh_quasar_high_fedd_filter)
+
                             nbh_quasar_low_fedd = len(bh_quasar_low_fedd_filter)
                             nbh_quasar_low_fedd_ascale = len(bh_quasar_low_fedd_ascale_filter)
+
+                            nbh_quasar_fedd002 = len(bh_quasar_fedd002_filter)
+                            nbh_quasar_fedd002_ascale = len(bh_quasar_fedd002_ascale_filter)
+
+                            nbh_quasar_fedd0002 = len(bh_quasar_fedd0002_filter)
+                            nbh_quasar_fedd0002_ascale = len(bh_quasar_fedd0002_ascale_filter)
+
                             nbh_jet = len(bh_jet_filter)
                             nbh_jet_ascale = len(bh_jet_ascale_filter)
 
+
                             append_to_dataset(group, f'n{part_type}_no_accretion_{aperture_name}', nbh_no_accretion, curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_{aperture_name}', nbh_quasar, curr_length)
                             append_to_dataset(group, f'n{part_type}_quasar_ascale_{aperture_name}', nbh_quasar_ascale, curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_high_fedd_{aperture_name}', nbh_quasar_high_fedd, curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_low_fedd_{aperture_name}', nbh_quasar_low_fedd, curr_length)
                             append_to_dataset(group, f'n{part_type}_quasar_low_fedd_ascale_{aperture_name}', nbh_quasar_low_fedd_ascale, curr_length)
+
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.02_{aperture_name}', nbh_quasar_fedd002, curr_length)
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.02_ascale_{aperture_name}', nbh_quasar_fedd002_ascale, curr_length)
+
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.002_{aperture_name}', nbh_quasar_fedd0002, curr_length)
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.002_ascale_{aperture_name}', nbh_quasar_fedd0002_ascale, curr_length)
+
                             append_to_dataset(group, f'n{part_type}_jets_{aperture_name}', nbh_jet, curr_length)
                             append_to_dataset(group, f'n{part_type}_jets_ascale_{aperture_name}', nbh_jet_ascale, curr_length)
 
-                        except:
+                        except Exception as error:
                             print(f'Bad {central_type} n{part_type}_no_accretion/quasar/jets_{aperture_name}')
+                            print(error)
                             append_to_dataset(group, f'n{part_type}_no_accretion_{aperture_name}', 0., curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_{aperture_name}', 0., curr_length)
                             append_to_dataset(group, f'n{part_type}_quasar_ascale_{aperture_name}', 0., curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_high_fedd_{aperture_name}', 0., curr_length)
+
                             append_to_dataset(group, f'n{part_type}_quasar_low_fedd_{aperture_name}', 0., curr_length)
                             append_to_dataset(group, f'n{part_type}_quasar_low_fedd_ascale_{aperture_name}', 0., curr_length)
+
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.02_{aperture_name}', 0., curr_length)
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.02_ascale_{aperture_name}', 0., curr_length)
+
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.002_{aperture_name}', 0., curr_length)
+                            append_to_dataset(group, f'n{part_type}_quasar_fedd<0.002_ascale_{aperture_name}', 0., curr_length)
+
                             append_to_dataset(group, f'n{part_type}_jets_{aperture_name}', 0., curr_length)
                             append_to_dataset(group, f'n{part_type}_jets_ascale_{aperture_name}', 0., curr_length)
 
